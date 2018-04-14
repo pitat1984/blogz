@@ -19,20 +19,21 @@ class Blog(db.Model):
         self.title = title
         self.blog = blog
 
-@app.route('/blog', methods=['POST', 'GET'])
+@app.route('/blog', methods=['GET'])
 def blog():
+        id = request.args.get('id')
+        blogs = Blog.query.all()
+        return render_template('blog.html', title="Build a Blog", id=id,blogs=blogs)
     
-    blogs = Blog.query.all()
-
-    return render_template('blog.html', title="Build a Blog", blogs=blogs)
+   
     
-@app.route('/single-blog', methods=['POST', 'GET'])
+@app.route('/single-blog', methods=['GET'])
 def single_blog():
     
-    id = int(request.args.get("blog_id"))
-    blog = request.args.get('blog')
+    id = int(request.args.get("id"))
+    
     blog = Blog.query.filter_by(id=id).first()
-    return render_template('single-blog.html', title="Build a Blog", blog=blog)
+    return render_template('single-blog.html', title="Build a Blog", id=id, blog=blog)
 
 
 @app.route('/newpost', methods=['POST','GET'])

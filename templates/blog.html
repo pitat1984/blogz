@@ -10,11 +10,12 @@
             
                 {% for blog in blogs %}
                 
-                <form action="/single-blog">
+                <form action="/blog">
                     
-                    <h1><a href='/single-blog'>{{blog.title}}</a></h1>
+                    <h1><a href='/blog?id={{id}}'>{{blog.title}}</a></h1>
                     <p>{{blog.blog}}</p>
-                    <input type="hidden" name="blog_id" value="{{blog.id}}" />                       
+                    <input type="hidden" name="id" value="{{blog.id}}" /> 
+                    <input type="submit" value="single block" />                    
                     <hr/>    
                 </form>
                 
