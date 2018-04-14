@@ -1,22 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-        <h1>Build a Blog</h1>
+        <h1 class="header">Build a Blog</h1>
         
         {% if blogs|length == 0 %}
         <p>No blogs yet</p>
         {% else %}
 
-            <ul>
+            
                 {% for blog in blogs %}
-                <li>{{blog.title}}
-                    <form action="/delete-task" method="POST" style="display:inline-block;">
-                        <input type="hidden" name="task-id" value="{{task.id}}" />
+                <h1>{{blog.title}}</h1>
+                <p>{{blog.blog}}</p>
+                    <form action="/delete-task" method="POST">
+                        <input type="hidden" name="blog-id" value="{{blog.id}}" />
                         
                     </form>
-                </li>
+                <hr/>
                 {% endfor %}
-            </ul>
+            
         
         {% endif %}
         

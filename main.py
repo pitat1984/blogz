@@ -11,7 +11,7 @@ app.secret_key = 'akxjKJAnlxsk'
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), unique=True)
-    blog = db.Column(db.String(120))
+    blog = db.Column(db.String(240))
 
 
     def __init__(self, title, blog):
@@ -20,10 +20,37 @@ class Blog(db.Model):
 
 @app.route('/blog', methods=['POST', 'GET'])
 def blog():
-    return render_template('.blog.html')
+
+    blogs = Blog.query.all()
+    
+    return render_template('blog.html', title="Build a Blog", blogs=blogs)
+    
 
 @app.route('/newpost', methods=['POST','GET'])
 def newpost():
+    if request.method == 'POST':
+        title = request.form['title']
+        blog = request.form['blog']
+        
+        if not title or not blog:
+            if not title:
+                title_error = 'Please enter a title'
+            else:
+                title_error = ''
+                
+            if not blog:
+                blog_error = 'Please enter a body'
+            else:
+                blog_error = ''
+
+            return render_template('/newpost.html', title=title, blog=blog,title_error=title_error, blog_error=blog_error)   
+
+        new_blog= Blog(title, blog)
+        db.session.add(new_blog)
+        db.session.commit()
+        blogs = Blog.query.all()
+        return render_template('/blog.html', blogs=blogs)
+
     return render_template('/newpost.html')
 
 @app.route('/login', methods=['POST', 'GET'])
