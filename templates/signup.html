@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Signup for Blogz</h1>
+<form class="form" action="/signup" method="post">    
+    
+    <table>
+        <tr>
+            <td><label>Email</label></td>
+            <td><input type="email" name="email" value="{{ email }}"/></td>
+            {% if username_error %}
+            <span class="error">{{ email_error }}</span>
+            {% endif %}
+        </tr>
+        <tr>    
+              
+            <td><label>Password</label></td>
+            <td><input type="password" name="password" /></td>
+            {% if password_error %}
+            <span class="error">{{ password_error }}</span>
+            {% endif %}
+        </tr>
+        <tr>
+            <td><label>Verify Password</label></td>
+            <td><input type="password" name="verify" /></td>
+            {% if password_error %}
+            <span class="error">{{ match_error }}</span>
+            {% endif %}
+        </tr>
+    </table>
+
+    <input type="submit" value="Register" />
+    
+</form>
+
+{% endblock %}
