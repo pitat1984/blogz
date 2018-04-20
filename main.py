@@ -118,27 +118,8 @@ def login():
     
     if request.method == 'POST':
         password = request.form['password']
-        verify_password = request.form['verify']
         email = request.form['email']
-
-        if valid_userpass(password) == False:
-            password_error = "That's not a valid password"
-        else:
-            password_error = ""
-
-        if passwords_match(password,verify_password) == False:
-            match_error = "Passwords don't match"
-        else:
-            match_error = ""
-
-        if valid_email(email) == False:
-            email_error = "That's not a valid email"
-        else:
-            email_error = ""
-
-        if (valid_userpass(password) == False) or (passwords_match(password,verify_password) == False) or (valid_email(email) == False):  
-            return render_template('signup.html', email=email, password_error=password_error, match_error=match_error, email_error=email_error)
-
+        
         user = User.query.filter_by(email=email).first()
 
         if user and user.password == password:
@@ -146,8 +127,13 @@ def login():
             flash('Logged in')
             
             return redirect('/newpost')
+        elif not user:
+            flash('Username does not exist', 'error')
+        elif user.password != password:
+            flash('Password is incorrect', 'error')
         else:
             flash('User password incorrect, or user does not exist', 'error')
+            
     return render_template('login.html')
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -158,6 +144,24 @@ def signup():
         password = request.form['password']
         verify = request.form['verify']
         existing_user = User.query.filter_by(email=email).first()
+            
+        if valid_userpass(password) == False:
+            password_error = "That's not a valid password"
+        else:
+            password_error = ""
+
+        if passwords_match(password,verify) == False:
+            match_error = "Passwords don't match"
+        else:
+            match_error = ""
+
+        if valid_email(email) == False:
+            email_error = "That's not a valid email"
+        else:
+            email_error = ""
+
+        if (valid_userpass(password) == False) or (passwords_match(password,verify) == False) or (valid_email(email) == False):  
+            return render_template('signup.html', email=email, password_error=password_error, match_error=match_error, email_error=email_error)
 
         if not existing_user:
             new_user = User(email,password)
@@ -166,7 +170,8 @@ def signup():
             session['email'] = email
             return redirect('/newpost')
         else:
-            return '<h1>Duplicate User!</h1>'
+            flash('That user already exists', 'error')
+            
     return render_template('signup.html')
 
 @app.route('/logout')
@@ -174,9 +179,10 @@ def logout():
     del session['email']
     return redirect('/blog')
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-
-    return render_template('/')
+    users = User.query.all()
+    return render_template('/', title="Build a Blog",users=users)
+    
 if __name__ == '__main__':
     app.run()

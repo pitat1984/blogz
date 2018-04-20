@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <h1 class="header">Blog Users</h1>
+        
+        {% if users|length == 0 %}
+        <p>No Users yet</p>
+        {% else %}
+
+            
+                {% for user in users %}
+                
+                <form action="/">
+                     
+                    <p>{{user.email}}</p>
+                      
+                </form>
+                
+                {% endfor %}
+            
+        
+        {% endif %}
+        
+ 
+{% endblock %}

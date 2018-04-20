@@ -9,7 +9,7 @@
             <td><label>Email</label></td>
             <td><input type="email" name="email" value="{{ email }}"/></td>
             {% if username_error %}
-            <span class="error">{{ email_error }}</span>
+            <td><span class="error">{{ email_error }}</span></td>
             {% endif %}
         </tr>
         <tr>    
@@ -17,14 +17,14 @@
             <td><label>Password</label></td>
             <td><input type="password" name="password" /></td>
             {% if password_error %}
-            <span class="error">{{ password_error }}</span>
+            <td><span class="error">{{ password_error }}</span></td>
             {% endif %}
         </tr>
         <tr>
             <td><label>Verify Password</label></td>
             <td><input type="password" name="verify" /></td>
-            {% if password_error %}
-            <span class="error">{{ match_error }}</span>
+            {% if match_error %}
+            <td><span class="error">{{ match_error }}</span></td>
             {% endif %}
         </tr>
     </table>
