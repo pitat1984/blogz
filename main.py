@@ -71,6 +71,7 @@ def passwords_match(input_one, input_two):
     else:
         return True
 
+
 @app.route('/blog', methods=['POST', 'GET'])
 def blog():
         
@@ -182,7 +183,7 @@ def logout():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     users = User.query.all()
-    return render_template('/', title="Build a Blog",users=users)
+    return render_template('index.html', title="Build a Blog",users=users)
     
 if __name__ == '__main__':
     app.run()
