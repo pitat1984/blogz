@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+        
+    
+        {% if blogs|length == 0 %}
+        <p>No blogs for this user yet</p>
+        {% else %}
+
+            
+                {% for blog in blogs %}
+                
+                <form action="/blog">
+                     
+                    <input type="hidden" name="id" value="{{blog.id}}" />
+                    <input type="hidden" name="title" value="{{blog.title}}" />
+                    <input type="hidden" name="blog" value="{{blog.blog}}" />  
+                    <h1><a href='/single-blog?id={{blog.id}}'>{{blog.title}}</a></h1>
+                    <p>{{blog.blog}}</p>
+                                       
+                    <hr/>    
+                </form>
+                
+                {% endfor %}
+            
+        
+        {% endif %}  
+ 
+{% endblock %}

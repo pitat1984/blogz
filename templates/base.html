@@ -27,6 +27,12 @@
             <a href='/login'>Login</a>
             <a href='/'>Home</a>
         </div>
+        <div style='float: right'>
+            {% if 'user' in session %}
+              {{ session['user'] }}
+
+            {% endif %}
+          </div>
 
         {% with messages = get_flashed_messages(with_categories=True) %}
         <ul>

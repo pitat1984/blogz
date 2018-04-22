@@ -6,8 +6,8 @@
     
     <table>
         <tr>
-            <td><label>Email</label></td>
-            <td><input type="email" name="email" value="{{ email }}"/></td>
+            <td><label>Username</label></td>
+            <td><input type="text" name="username" value="{{ username }}"/></td>
             {% if username_error %}
             <td><span class="error">{{ email_error }}</span></td>
             {% endif %}
@@ -29,7 +29,7 @@
         </tr>
     </table>
 
-    <input type="submit" value="Register" />
+    <input type="submit" value="Signup" />
     
 </form>
 

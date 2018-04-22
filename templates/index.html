@@ -11,11 +11,12 @@
                 {% for user in users %}
                 
                 <form action="/">
-                     
-                    <p>{{user.email}}</p>
+                        <input type="hidden" name="id" value="{{user.id}}" /> 
+                        <input type="hidden" name="username" value="{{user.username}}" />
+                        <a href='/user-blogs?user={{user.id}}'>{{user.username}}</a>
                       
                 </form>
-                
+
                 {% endfor %}
             
         
