@@ -17,7 +17,7 @@
                     <input type="hidden" name="blog" value="{{blog.blog}}" />  
                     <h1><a href='/single-blog?id={{blog.id}}'>{{blog.title}}</a></h1>
                     <p>{{blog.blog}}</p>
-                                       
+                    <p>Written by: <a href='/user-blogs?user={{blog.owner.id}}'>{{blog.owner.username}}</a></p>                   
                     <hr/>    
                 </form>
                 

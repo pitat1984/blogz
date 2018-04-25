@@ -10,7 +10,7 @@ app.secret_key = 'akxjKJAnlxsk'
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(120), unique=True)
+    title = db.Column(db.String(120))
     blog = db.Column(db.String(240))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -64,6 +64,7 @@ def require_login():
 @app.route('/blog', methods=['POST', 'GET'])
 def blog():
         
+        users = User.query.all()
         blogs = Blog.query.all()
         return render_template('blog.html', title="Build a Blog",blogs=blogs) 
     
@@ -79,7 +80,7 @@ def single_blog():
 def user_blogs():
     
     username = request.args.get("username")
-    id = request.args.get("id")
+    id = request.args.get("user")
     
     owner = User.query.filter_by(id=id).first()
     blogs = Blog.query.filter_by(owner=owner).all()
@@ -105,7 +106,7 @@ def newpost():
 
             return render_template('newpost.html', title=title, blog=blog,title_error=title_error, blog_error=blog_error)   
 
-        new_blog= Blog(title, blog,owner)
+        new_blog= Blog(title, blog, owner)
         db.session.add(new_blog)
         db.session.commit()
         blogs = Blog.query.all()
@@ -157,12 +158,12 @@ def signup():
             match_error = ""
 
         if valid_userpass(username) == False:
-            email_error = "That's not a valid user name"
+            username_error = "That's not a valid user name"
         else:
-            email_error = ""
+            username_error = ""
 
         if (valid_userpass(password) == False) or (passwords_match(password,verify) == False) or (valid_userpass(username) == False):  
-            return render_template('signup.html', username=username, password_error=password_error, match_error=match_error, email_error=email_error)
+            return render_template('signup.html', username=username, password_error=password_error, match_error=match_error, username_error=username_error)
 
         if not existing_user:
             new_user = User(username,password)
