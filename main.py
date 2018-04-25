@@ -66,7 +66,7 @@ def blog():
         
         users = User.query.all()
         blogs = Blog.query.all()
-        return render_template('blog.html', title="Build a Blog",blogs=blogs) 
+        return render_template('blog.html', title="Blogz",blogs=blogs) 
     
 @app.route('/single-blog', methods=['GET'])
 def single_blog():
@@ -74,7 +74,7 @@ def single_blog():
     id = request.args.get("id")
     
     blog = Blog.query.filter_by(id=id).first()
-    return render_template('single-blog.html', title="Build a Blog",blog=blog)
+    return render_template('single-blog.html', title="Blogz",blog=blog)
 
 @app.route('/user-blogs', methods=['GET'])
 def user_blogs():
@@ -184,7 +184,7 @@ def logout():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     users = User.query.all()
-    return render_template('index.html', title="Build a Blog",users=users)
+    return render_template('index.html', title="Blogz",users=users)
     
 if __name__ == '__main__':
     app.run()
